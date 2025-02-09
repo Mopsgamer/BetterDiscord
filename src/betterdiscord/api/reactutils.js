@@ -14,9 +14,9 @@ const ReactUtils = {
 
     /**
      * Gets the internal React data of a specified node.
-     * 
+     *
      * @param {HTMLElement} node Node to get the internal React data from
-     * @returns {object|undefined} Either the found data or `undefined` 
+     * @returns {object|undefined} Either the found data or `undefined`
      */
     getInternalInstance(node) {
         if (node.__reactFiber$) return node.__reactFiber$;
@@ -24,9 +24,9 @@ const ReactUtils = {
     },
 
     /**
-      * Attempts to find the "owner" node to the current node. This is generally 
+      * Attempts to find the "owner" node to the current node. This is generally
       * a node with a `stateNode` - a class component.
-      * 
+      *
       * @param {HTMLElement} node Node to obtain React instance of
       * @param {object} options Options for the search
       * @param {array} [options.include] List of items to include in the search
@@ -47,20 +47,20 @@ const ReactUtils = {
             const name = getDisplayName(owner);
             return (name !== null && !!(nameFilter.includes(name) ^ excluding));
         }
-        
+
         let curr = ReactUtils.getInternalInstance(node);
         for (curr = curr && curr.return; curr !== null; curr = curr.return) {
             if (curr === null) continue;
             const owner = curr.stateNode;
             if (owner !== null && !(owner instanceof HTMLElement) && classFilter(curr) && filter(owner)) return owner;
         }
-        
+
         return null;
     },
 
     /**
       * Creates an unrendered React component that wraps HTML elements.
-      * 
+      *
       * @param {HTMLElement} element Element or array of elements to wrap
       * @returns {object} Unrendered React component
       */

@@ -70,7 +70,7 @@ function buildLink(type, url) {
         link.props.onClick = function(event) {
             event.preventDefault();
             event.stopPropagation();
-            
+
             Modals.showGuildJoinModal(url);
         };
     }
@@ -132,7 +132,7 @@ export default function AddonCard({addon, enabled, type, disabled, onChange: par
         const links = Object.keys(LinkIcons);
         const linkComponents = links.map(l => buildLink(l, addon[l])).filter(c => c);
         return <div className="bd-footer">
-                    <span className="bd-links">{linkComponents}</span> 
+                    <span className="bd-links">{linkComponents}</span>
                     <div className="bd-controls">
                         {hasSettings && makeButton(Strings.Addons.addonSettings, <SettingsIcon size={"20px"} />, showSettings, {isControl: true, disabled: !enabled})}
                         {editAddon && makeButton(Strings.Addons.editAddon, <PencilIcon size={"20px"} />, editAddon, {isControl: true})}

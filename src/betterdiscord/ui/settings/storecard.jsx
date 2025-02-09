@@ -16,19 +16,19 @@ export const TagContext = createContext();
 
 function formatNumberWithSuffix(value) {
     if (value === 0) return "0";
-  
-    const suffixes = ["", "k", "M", "B", "T"]; 
+
+    const suffixes = ["", "k", "M", "B", "T"];
     const index = Math.floor(Math.log10(Math.abs(value)) / 3);
     const divisor = Math.pow(10, index * 3);
 
     let formattedValue = (value / divisor).toFixed(1);
     if (formattedValue.endsWith(".0")) formattedValue = formattedValue.slice(0, -2);
-  
+
     return `${formattedValue}${suffixes[index]}`;
 }
 
 /**
- * @param {{ addon: import("@modules/addonstore").Addon, isEmbed?: boolean }} props 
+ * @param {{ addon: import("@modules/addonstore").Addon, isEmbed?: boolean }} props
  */
 export default function AddonCard({addon, isEmbed}) {
     const [isInstalled, setInstalled] = useState(() => addon.isInstalled());
@@ -41,7 +41,7 @@ export default function AddonCard({addon, isEmbed}) {
 
     const installAddon = useCallback(async (event) => {
         setDisabled(true);
-        
+
         await addon.download(event.shiftKey);
 
         setDownloads(addon.downloads);
@@ -61,10 +61,10 @@ export default function AddonCard({addon, isEmbed}) {
         };
 
         listener();
-        
+
         Events.on(`${addon.manager.prefix}-loaded`, listener);
         Events.on(`${addon.manager.prefix}-unloaded`, listener);
-        
+
         return () => {
             Events.off(`${addon.manager.prefix}-loaded`, listener);
             Events.off(`${addon.manager.prefix}-unloaded`, listener);
@@ -82,18 +82,18 @@ export default function AddonCard({addon, isEmbed}) {
     }), [addon, downloadCount]);
 
     return (
-        <div 
-            className={clsx({ 
-                "bd-addon-store-card": true, 
-                "bd-addon-store-card-embed": isEmbed 
-            })} 
+        <div
+            className={clsx({
+                "bd-addon-store-card": true,
+                "bd-addon-store-card-embed": isEmbed
+            })}
             onMouseEnter={() => {
                 addon.markAsKnown();
             }}
         >
             <div className="bd-addon-store-card-splash">
                 <div className="bd-addon-store-card-preview">
-                    <img 
+                    <img
                         src={addon.thumbnail}
                         onError={(event) => {
                             // Fallback to blank thumbnail
@@ -136,7 +136,7 @@ export default function AddonCard({addon, isEmbed}) {
                                     >
                                         <DiscordModules.Tooltip text={addon.author}>
                                             {(props) => (
-                                                <img 
+                                                <img
                                                     loading="lazy"
                                                     className="bd-addon-store-card-author-img"
                                                     src={addon.avatar}
@@ -187,7 +187,7 @@ export default function AddonCard({addon, isEmbed}) {
                         {(props) => (
                             <Button
                                 {...props}
-                                size={Button.Sizes.ICON} 
+                                size={Button.Sizes.ICON}
                                 look={Button.Looks.BLANK}
                                 onClick={openAddonPage}
                             >
@@ -199,7 +199,7 @@ export default function AddonCard({addon, isEmbed}) {
                         {(props) => (
                             <Button
                                 {...props}
-                                size={Button.Sizes.ICON} 
+                                size={Button.Sizes.ICON}
                                 look={Button.Looks.BLANK}
                                 onClick={openSourceCode}
                             >
@@ -212,7 +212,7 @@ export default function AddonCard({addon, isEmbed}) {
                             {(props) => (
                                 <Button
                                     {...props}
-                                    size={Button.Sizes.ICON} 
+                                    size={Button.Sizes.ICON}
                                     look={Button.Looks.BLANK}
                                     onClick={openAddonPreview}
                                 >
@@ -226,7 +226,7 @@ export default function AddonCard({addon, isEmbed}) {
                             {(props) => (
                                 <Button
                                     {...props}
-                                    size={Button.Sizes.ICON} 
+                                    size={Button.Sizes.ICON}
                                     look={Button.Looks.BLANK}
                                     onClick={acceptInvite}
                                 >
@@ -239,10 +239,10 @@ export default function AddonCard({addon, isEmbed}) {
                     {isInstalled ? (
                         <DiscordModules.Tooltip text={Strings.Addons.deleteAddon}>
                             {(props) => (
-                                <Button 
-                                    {...props} 
-                                    onClick={triggerDelete} 
-                                    color={Button.Colors.RED} 
+                                <Button
+                                    {...props}
+                                    onClick={triggerDelete}
+                                    color={Button.Colors.RED}
                                     size={Button.Sizes.ICON}
                                 >
                                     <Trash2Icon size="20px" />

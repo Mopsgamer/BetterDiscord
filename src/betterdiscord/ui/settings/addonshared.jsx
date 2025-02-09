@@ -34,7 +34,7 @@ export function saveState(type, control, value) {
 export const addonContext = React.createContext();
 
 /**
- * @param {{ children: any, count: number, searching: boolean}} param0 
+ * @param {{ children: any, count: number, searching: boolean}} param0
  */
 export function AddonHeader({children, count, searching}) {
     /** @type {{ title: any, toggleStore(): void, showingStore: boolean }} */
@@ -46,7 +46,7 @@ export function AddonHeader({children, count, searching}) {
     }, [showingStore, toggleStore]);
 
     return (
-        <SettingsTitle 
+        <SettingsTitle
             text={(
                 <div className="bd-addon-title" data-showing-store={showingStore}>
                     <span onClick={exitStore}>{title}</span>

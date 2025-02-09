@@ -69,9 +69,9 @@ function confirmDelete(addon) {
 }
 
 /**
- * @param {function} action 
+ * @param {function} action
  * @param {string} type
- * @returns 
+ * @returns
  */
 function confirmEnable(action, type) {
     /**
@@ -88,15 +88,15 @@ function confirmEnable(action, type) {
     };
 }
 
-function StoreCard() {    
+function StoreCard() {
     const {title, toggleStore} = React.useContext(addonContext);
-    
+
     if (!Settings.get("settings", "store", "bdAddonStore")) return;
 
     return (
-        <div 
-            className="bd-store-card" 
-            onClick={toggleStore} 
+        <div
+            className="bd-store-card"
+            onClick={toggleStore}
         >
             <div className="bd-store-card-icon">
                 <StoreIcon size="24px" />
@@ -113,9 +113,9 @@ function StoreCard() {
 }
 
 /**
- * @param {object} props 
+ * @param {object} props
  * @param {import("@modules/addonmanager").default} props.store
- * @returns 
+ * @returns
  */
 export default function AddonList({title, store}) {
     const [query, setQuery] = useState("");
@@ -174,7 +174,7 @@ export default function AddonList({title, store}) {
         let sorted = addonList.sort((a, b) => {
             const sortByEnabled = sort === "isEnabled";
             const first = sortByEnabled ? addonState[a.id] : a[sort];
-            const second = sortByEnabled ? addonState[b.id] : b[sort]; 
+            const second = sortByEnabled ? addonState[b.id] : b[sort];
             const stringSort = (str1, str2) => str1.toLocaleLowerCase().localeCompare(str2.toLocaleLowerCase());
             if (typeof(first) == "string") return stringSort(first, second);
             if (typeof(first) == "boolean") return (first === second) ? stringSort(a.name, b.name) : first ? -1 : 1;

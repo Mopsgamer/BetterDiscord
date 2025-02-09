@@ -174,12 +174,12 @@ const NotificationItem = ({notification, position}) => {
                 ...baseSlide,
                 transform: exiting ? "translateX(100%)" : "translateX(0%)"
             };
-        } 
+        }
             return {
                 ...baseSlide,
                 transform: exiting ? "translateX(-100%)" : "translateX(0%)"
             };
-        
+
     };
 
     const slideProps = spring.useSpring(getSlideAnimation());

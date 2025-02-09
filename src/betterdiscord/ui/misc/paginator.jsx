@@ -8,10 +8,10 @@ const {useMemo} = React;
 
 export default function Paginator({className, currentPage, length, pageSize, onPageChange, maxVisible = 7}) {
     const max = useMemo(() => Math.ceil(length / pageSize), [length, pageSize]);
-    
+
     const visiblePages = useMemo(() => {
         const visible = [];
-        
+
         if (max <= maxVisible) {
             for (let index = 0; index < max; index++) {
                 visible.push(index);
@@ -21,7 +21,7 @@ export default function Paginator({className, currentPage, length, pageSize, onP
             const half = Math.trunc(maxVisible / 2);
 
             const m2 = maxVisible - 2;
-                        
+
             if (currentPage <= half) {
                 for (let index = 0; index < m2; index++) {
                     visible.push(index);
@@ -40,7 +40,7 @@ export default function Paginator({className, currentPage, length, pageSize, onP
                 const diff = Math.floor((maxVisible - 4) / 2);
 
                 visible.push(0, "...");
-                
+
                 for (let index = currentPage - diff; index <= (currentPage + diff); index++) {
                   visible.push(index);
                 }
@@ -54,10 +54,10 @@ export default function Paginator({className, currentPage, length, pageSize, onP
 
     return (
         <div className={clsx("bd-paginator", className)}>
-            <Button 
-                className="bd-paginator-back" 
-                color={Button.Colors.TRANSPARENT} 
-                look={Button.Looks.BLANK} 
+            <Button
+                className="bd-paginator-back"
+                color={Button.Colors.TRANSPARENT}
+                look={Button.Looks.BLANK}
                 disabled={currentPage === 0}
                 onClick={() => onPageChange(currentPage - 1)}
             >
@@ -68,20 +68,20 @@ export default function Paginator({className, currentPage, length, pageSize, onP
                     const ellipsis = value === "...";
 
                     return (
-                        <div 
-                            key={key} 
-                            className="bd-paginator-bubble" 
-                            onClick={ellipsis ? () => {} : () => onPageChange(value)} 
+                        <div
+                            key={key}
+                            className="bd-paginator-bubble"
+                            onClick={ellipsis ? () => {} : () => onPageChange(value)}
                             data-selected={currentPage === value}
                             data-ellipsis={ellipsis}
                         >{ellipsis ? value : value + 1}</div>
                     );
                 })}
             </div>
-            <Button 
-                className="bd-paginator-next" 
-                color={Button.Colors.TRANSPARENT} 
-                look={Button.Looks.BLANK} 
+            <Button
+                className="bd-paginator-next"
+                color={Button.Colors.TRANSPARENT}
+                look={Button.Looks.BLANK}
                 disabled={currentPage === (max - 1)}
                 onClick={() => onPageChange(currentPage + 1)}
             >

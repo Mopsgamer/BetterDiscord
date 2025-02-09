@@ -22,7 +22,7 @@ export default class FloatingWindows {
         ReactDOM.render(wrapped, div);
         hasInitialized = true;
     }
-    
+
     static open(window) {
         if (!hasInitialized) this.initialize();
         return Events.emit("open-window", window);

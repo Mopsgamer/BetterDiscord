@@ -15,7 +15,7 @@ export default function Switch({id, value: initialValue, disabled, onChange, int
         onChange?.(!isChecked);
         setChecked(!isChecked);
     }, [onChange, isChecked]);
-    
+
     const enabledClass = disabled ? " bd-switch-disabled" : "";
     const checkedClass = isChecked ? " bd-switch-checked" : "";
     return <div className={`bd-switch` + enabledClass + checkedClass}>

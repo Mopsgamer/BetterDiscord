@@ -106,7 +106,7 @@ export default class BdApi {
     get ReactUtils() {return ReactUtils;}
     get ContextMenu() {return ContextMenuAPI;}
     get Components() {return Components;}
-    Net = {fetch}; 
+    Net = {fetch};
 }
 
 // Add legacy functions

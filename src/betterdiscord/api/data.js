@@ -18,7 +18,7 @@ class Data {
 
     /**
      * Saves JSON-serializable data.
-     * 
+     *
      * @param {string} pluginName Name of the plugin saving data
      * @param {string} key Which piece of data to store
      * @param {any} data The data to be saved
@@ -34,7 +34,7 @@ class Data {
 
     /**
      * Loads previously stored data.
-     * 
+     *
      * @param {string} pluginName Name of the plugin loading data
      * @param {string} key Which piece of data to load
      * @returns {any} The stored data
@@ -49,7 +49,7 @@ class Data {
 
     /**
      * Deletes a piece of stored data. This is different than saving `null` or `undefined`.
-     * 
+     *
      * @param {string} pluginName Name of the plugin deleting data
      * @param {string} key Which piece of data to delete.
      */

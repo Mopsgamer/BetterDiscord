@@ -48,7 +48,7 @@ export default forwardRef(function CssEditor({css, openNative, update, save, onC
         save?.(newCSS);
         setUnsaved(false);
     }, [save]);
-    
+
 
     return <Editor
                 ref={editorRef}

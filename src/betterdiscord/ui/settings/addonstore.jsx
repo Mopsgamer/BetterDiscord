@@ -41,14 +41,14 @@ function StoreContent({content, refToScroller, page, setPage}) {
             <div className="bd-addon-store">
                 {cards}
             </div>
-            <Paginator 
+            <Paginator
                 currentPage={page}
                 length={content.length}
                 pageSize={MAX_AMOUNT_OF_CARDS}
                 maxVisible={9}
-                onPageChange={($page) => {                    
+                onPageChange={($page) => {
                     setPage($page);
-                    
+
                     /** @type {HTMLDivElement} */
                     const node = refToScroller?.current?.getScrollerNode();
                     if (!node) return;
@@ -76,7 +76,7 @@ function TagDropdown({type, selected, onChange}) {
             document.addEventListener("click", hideMenu);
             return;
         }
-        
+
         setOpen(event.shiftKey);
     }, [hideMenu, open]);
 
@@ -93,8 +93,8 @@ function TagDropdown({type, selected, onChange}) {
                     {tags.map((tag, index) => {
                         const isSelected = selectedTags.includes(tag);
                         return (
-                            <div 
-                                className={`bd-select-option${isSelected ? " selected" : ""}`} 
+                            <div
+                                className={`bd-select-option${isSelected ? " selected" : ""}`}
                                 onClick={() => onChange(tag)}
                                 key={index}
                             >
@@ -110,7 +110,7 @@ function TagDropdown({type, selected, onChange}) {
 }
 
 /**
- * @param {{type: "plugin"|"theme", title: string, refToScroller: any}} param0 
+ * @param {{type: "plugin"|"theme", title: string, refToScroller: any}} param0
  */
 export default function AddonStorePage({type, title, refToScroller}) {
     const {error, addons, loading} = AddonStore.useState();
@@ -122,13 +122,13 @@ export default function AddonStorePage({type, title, refToScroller}) {
 
     /** @type {(tag: string, value?: boolean) => void} */
     const toggleTag = useCallback((tag, value) => {
-        setPage(0);        
+        setPage(0);
 
         setTags(($tags) => ({
             ...$tags,
             [tag]: value ?? !$tags[tag]
         }));
-    }, []);    
+    }, []);
 
     const [query, setQuery] = useState("");
 
@@ -139,7 +139,7 @@ export default function AddonStorePage({type, title, refToScroller}) {
 
     const [sort, setSort] = useState(() => getState(`${type}-store`, "sort", "downloads"));
     const [ascending, setAscending] = useState(() => getState(`${type}-store`, "ascending", true));
-    
+
     const changeDirection = useCallback((value) => {
         saveState(`${type}-store`, "ascending", value);
         setAscending(value);
@@ -165,7 +165,7 @@ export default function AddonStorePage({type, title, refToScroller}) {
     }, [type, addons, query, tags]);
 
     const content = useMemo(() => {
-        if (loading) {            
+        if (loading) {
             return (
                 <div className="bd-addon-store-center">
                     <Spinner type={Spinner.Type.WANDERING_CUBES} />
@@ -212,10 +212,10 @@ export default function AddonStorePage({type, title, refToScroller}) {
             }
 
             if (comparison === 0 || isNaN(comparison)) comparison = a.name.localeCompare(b.name);
-        
+
             return ascending ? comparison : -comparison; // Adjust for ascending/descending
         });
-        
+
         const cards = $addons.map((addon) => (
             <ErrorBoundary key={addon.id}><AddonCard addon={addon} /></ErrorBoundary>
         ));
@@ -240,10 +240,10 @@ export default function AddonStorePage({type, title, refToScroller}) {
                 <div className="bd-addon-dropdowns">
                     <div className="bd-select-wrapper">
                         <label className="bd-label">{Strings.Addons.tags}:</label>
-                        <TagDropdown 
+                        <TagDropdown
                             type={type}
-                            selected={tags} 
-                            onChange={toggleTag} 
+                            selected={tags}
+                            onChange={toggleTag}
                         />
                     </div>
                     <div className="bd-select-wrapper">
@@ -270,10 +270,10 @@ export default function AddonStorePage({type, title, refToScroller}) {
                 </div>
             </div>
         ),
-        <TagContext.Provider 
-            value={[ 
-                (tag) => !!tags[tag], 
-                toggleTag 
+        <TagContext.Provider
+            value={[
+                (tag) => !!tags[tag],
+                toggleTag
             ]}
         >{content}</TagContext.Provider>
     ];
