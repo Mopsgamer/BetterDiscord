@@ -50,11 +50,11 @@ function Blankslate({type, folder}) {
 }
 
 function makeControlButton(title, children, action, selected = false) {
-    return <DiscordModules.Tooltip color="primary" position="top" text={title}>
-                {(props) => {
-                    return <Button {...props} size={Button.Sizes.NONE} look={Button.Looks.BLANK} className={"bd-button bd-view-button" + (selected ? " selected" : "")} onClick={action}>{children}</Button>;
-                }}
-            </DiscordModules.Tooltip>;
+    return <DiscordModules.Tooltip color="primary" position="top" text={title.toString()}>
+        {(props) => {
+            return <Button {...props} size={Button.Sizes.NONE} aria-label={title.toString()} look={Button.Looks.BLANK} className={"bd-button bd-view-button" + (selected ? " selected" : "")} onClick={action}>{children}</Button>;
+        }}
+    </DiscordModules.Tooltip>;
 }
 
 function confirmDelete(addon) {
@@ -77,7 +77,7 @@ function confirmEnable(action, type) {
     /**
      * @param {MouseEvent} event
      */
-    return function(event) {
+    return function (event) {
         if (event.shiftKey) return action();
         Modals.showConfirmationModal(Strings.Modals.confirmAction, Strings.Addons.enableAllWarning.format({type: type.toLocaleLowerCase()}), {
             confirmText: Strings.Modals.okay,
@@ -199,8 +199,8 @@ export default function AddonList({title, store}) {
             const hasSettings = addon.instance && typeof (addon.instance.getSettingsPanel) === "function";
             const getSettings = hasSettings && addon.instance.getSettingsPanel.bind(addon.instance);
             return <ErrorBoundary id={addon.id} name="AddonCard">
-                        <AddonCard store={store} disabled={addon.partial} type={store.prefix} editAddon={() => triggerEdit(addon.id)} deleteAddon={() => triggerDelete(addon.id)} key={addon.id} addon={addon} onChange={onChange} enabled={addonState[addon.id]} reload={reload} hasSettings={hasSettings} getSettingsPanel={getSettings} />
-                    </ErrorBoundary>;
+                <AddonCard store={store} disabled={addon.partial} type={store.prefix} editAddon={() => triggerEdit(addon.id)} deleteAddon={() => triggerDelete(addon.id)} key={addon.id} addon={addon} onChange={onChange} enabled={addonState[addon.id]} reload={reload} hasSettings={hasSettings} getSettingsPanel={getSettings} />
+            </ErrorBoundary>;
         });
     }, [store, addonList, addonState, onChange, reload, triggerDelete, triggerEdit, query, ascending, sort]);
 

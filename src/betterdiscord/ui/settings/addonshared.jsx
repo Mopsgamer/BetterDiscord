@@ -8,13 +8,13 @@ import SettingsTitle from "@ui/settings/title";
 import {BadgeCheckIcon, ChevronRightIcon} from "lucide-react";
 
 export const buildDirectionOptions = () => [
-  {label: Strings.Sorting.ascending, value: true},
-  {label: Strings.Sorting.descending, value: false}
+    {label: Strings.Sorting.ascending, value: true},
+    {label: Strings.Sorting.descending, value: false}
 ];
 
 export function makeBasicButton(title, children, action, key) {
-    return <DiscordModules.Tooltip color="primary" position="top" text={title} key={key}>
-        {(props) => <Button {...props} size={Button.Sizes.NONE} look={Button.Looks.BLANK} className="bd-button" onClick={action}>{children}</Button>}
+    return <DiscordModules.Tooltip color="primary" position="top" aria-label={title} text={title} key={key}>
+        {(props) => <Button {...props} aria-label={title} size={Button.Sizes.NONE} look={Button.Looks.BLANK} className="bd-button" onClick={action}>{children}</Button>}
     </DiscordModules.Tooltip>;
 }
 
