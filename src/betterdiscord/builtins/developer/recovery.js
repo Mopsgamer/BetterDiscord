@@ -6,6 +6,7 @@ import Strings from "@modules/strings";
 import Builtin from "@structs/builtin";
 import Settings from "@stores/settings";
 import pluginmanager from "@modules/pluginmanager";
+import IPC from "@modules/ipc";
 import Toasts from "@ui/toasts";
 import Modals from "@ui/modals";
 import {getByKeys, getByPrototypes, getByStrings} from "@webpack";
@@ -13,7 +14,7 @@ import {getByKeys, getByPrototypes, getByStrings} from "@webpack";
 const Dispatcher = DiscordModules.Dispatcher;
 
 async function attemptRecovery() {
-    const transitionTo = getByStrings([ "transitionTo - Transitioning to" ], {searchExports: true});
+    const transitionTo = getByStrings(["transitionTo - Transitioning to"], {searchExports: true});
 
     const recoverySteps = [
         {
@@ -121,6 +122,16 @@ const ErrorDetails = ({componentStack, pluginInfo, stack, instance}) => {
                             {Strings.Addons.invite}
                         </Button>
                     )}
+                    <Button
+                        className="bd-error-safe-mode"
+                        onClick={() => {
+                            pluginmanager.addonList.forEach((x) => pluginmanager.disableAddon(x.name));
+                            IPC.relaunch();
+                        }}
+                        color={Colors.RED}
+                    >
+                        {Strings.Collections.settings.developer.recovery.safeMode}
+                    </Button>
                 </div>
             </div>
             <div
@@ -196,7 +207,7 @@ export default new class Recovery extends Builtin {
                     }}
                 >
                     {Strings.Collections.settings.developer.recovery.button}
-                    </Button>,
+                </Button>,
                 parsedError && <ErrorDetails componentStack={parsedError} stack={errorStack?.error?.stack} pluginInfo={pluginInfo} instance={instance} />
             );
         });
